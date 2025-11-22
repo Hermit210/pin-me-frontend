@@ -3,6 +3,7 @@
 Finvest is a blockchain-inspired crowdfunding platform built for startups, NGOs, charities, and social-impact projects. 
 The platform emphasizes transparency, milestone-based fund allocation, and AI-assisted project management to help donors 
 and investors make informed decisions.
+pitch deck : https://finvest-crowdfunding-ye61nlx.gamma.site/
 
 ##  Features
 - Milestone-based fund allocation  
@@ -25,6 +26,7 @@ Live Link: https://3xxdnn3m.pinit.eth.limo
 - Vite  
 - HTML, CSS, JavaScript  
 - PinMe for decentralized hosting
+
 
 ## Development
 To run locally:
