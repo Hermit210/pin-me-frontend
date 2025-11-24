@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import UserProfileIcon from './ui/UserProfileIcon';
 import useAuth from '@/utils/auth';
 import Sidebar from './Sidebar';
+import WalletConnectButton from './WalletConnectButton';
 
 function Navbar() {
   const { isLoggedIn, user } = useAuth();
@@ -44,18 +45,21 @@ function Navbar() {
           </li>
         </ul>
 
-        {/* Login / Sign Up Button */}
-        {isLoggedIn ? (
-          <FadeIn direction="left" delay={0.2}>
-            <UserProfileIcon />
-          </FadeIn>
-        ) : (
-          <Link to="/signup">
-            <Button variant="custom" size="lg" className="md:block m-0">
-              Sign Up
-            </Button>
-          </Link>
-        )}
+        {/* Wallet & Auth Buttons */}
+        <div className="flex items-center gap-3">
+          <WalletConnectButton />
+          {isLoggedIn ? (
+            <FadeIn direction="left" delay={0.2}>
+              <UserProfileIcon />
+            </FadeIn>
+          ) : (
+            <Link to="/signup">
+              <Button variant="custom" size="lg" className="md:block m-0">
+                Sign Up
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </FadeIn>
   );

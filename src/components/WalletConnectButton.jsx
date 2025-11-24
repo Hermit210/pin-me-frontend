@@ -1,33 +1,47 @@
-// components/WalletConnectButton.js
-import React, { useState } from 'react';
-import Web3Modal from 'web3modal';
-import { ethers } from 'ethers';
+import React, { useContext } from 'react';
+import { WalletContext } from '@/context/WalletContext';
+import { Button } from './ui/button';
+import { Wallet } from 'lucide-react';
 
 const WalletConnectButton = () => {
-    const [provider, setProvider] = useState(null);
+    const { walletAddress, connectWallet, disconnectWallet } = useContext(WalletContext);
 
-    const connectWallet = async () => {
-        try {
-            const web3Modal = new Web3Modal({
-                cacheProvider: true, // optional
-                providerOptions: {}, // required
-            });
-
-            const instance = await web3Modal.connect();
-            const ethersProvider = new ethers.providers.Web3Provider(instance);
-            setProvider(ethersProvider);
-        } catch (error) {
-            console.error("Failed to connect to wallet:", error);
-        }
+    const formatAddress = (address) => {
+        if (!address) return '';
+        return `${address.slice(0, 6)}...${address.slice(-4)}`;
     };
 
     return (
-        <button
-            onClick={connectWallet}
-            className=" bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-            Connect Wallet
-        </button>
+        <>
+            {walletAddress ? (
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-green-500/10 border-green-500 text-green-500 hover:bg-green-500/20"
+                    >
+                        <Wallet className="w-4 h-4 mr-2" />
+                        {formatAddress(walletAddress)}
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={disconnectWallet}
+                        className="text-red-400 hover:text-red-300"
+                    >
+                        Disconnect
+                    </Button>
+                </div>
+            ) : (
+                <Button
+                    onClick={connectWallet}
+                    className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600"
+                >
+                    <Wallet className="w-4 h-4 mr-2" />
+                    Connect Wallet
+                </Button>
+            )}
+        </>
     );
 };
 
